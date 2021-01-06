@@ -5,6 +5,31 @@ var processed = {},
     height: 250,
   };
 
+  let crops = []
+let currentCrop = 0
+
+let nextCrop = () => { 
+  var img = $("#photo")
+  console.log(`${currentCrop}. crop`)
+  console.log(img[0])
+  let crop = crops[currentCrop];
+  var  canvas = $('<canvas>')[0],
+  ctx = canvas.getContext('2d');
+  canvas.width = options.width;
+  canvas.height = options.height;
+  console.log(img[0], crop.x, crop.y, crop.width, crop.height, 0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.drawImage(img[0], crop.x, crop.y, crop.width, crop.height, 0, 0, canvas.width, canvas.height);
+  img
+    .after(canvas)
+  //   .after(result.debugCanvas);
+    currentCrop++;  
+}
+
+$("#next").click(nextCrop)
+
+  
 $("#format").click(function(){
 $('img').each(function() {
   $(this).load(function() {
